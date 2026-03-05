@@ -3,9 +3,12 @@ I own an old internet radio receiver that has neither Bluetooth nor a line in. I
 I am using a Raspberry Pi Zero 2 W with the latest Raspberry Pi OS (13.2).
 
 ## Remarks
-The setup is done as the 'pi' default user, thus the 'sudo' commands. All services are however set up as system services.
-The project is in a 'works for me' state and has no regards of any other scripts or services on the machine. 
+- The setup is done as the 'pi' default user, thus the 'sudo' commands.
+- All services are however set up as system services.
+- The project is in a 'works for me' state and has no regards of any other scripts or services on the machine. 
 
+## Known Bugs
+- The 'Name' in '/etc/bluetooth/main.conf' ist not used, but the machine name. 
 
 ## To Dos
 - make the stream a service that works all the time regardless of a bluetooth audio stream present and there is no interaction needed with the system at all.
