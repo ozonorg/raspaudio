@@ -4,11 +4,12 @@ I am using a Raspberry Pi Zero 2 W with the latest Raspberry Pi OS (13.2).
 
 ## Remarks
 - The setup is done as the 'pi' default user, thus the 'sudo' commands.
-- All services are however set up as system services.
+- All services are set up as system services.
 - The project is in a 'works for me' state and has no regards of any other scripts or services on the machine. 
 
 ## Known Bugs
-- The 'Name' in '/etc/bluetooth/main.conf' ist not used, but the machine name. 
+- The 'Name' in '/etc/bluetooth/main.conf' is not used, but the machine name.
+- Sometimes you have to restart the system, re-pair or reconnect device for A2DP to work.
 
 ## To Dos
 - Make the stream a service that works all the time regardless of a Bluetooth audio stream present and there is no interaction needed with the system at all.
@@ -263,7 +264,7 @@ sudo systemctl enable --now bt-auto-agent.service
 ## Connect an A2DP source
 Connect and A2DP source like a phone, start to play some music and route it to the Pi Bluetooth sink.
 ## Stream the music via http
-The A2DP sink stream shows up as `auto_null.monitor`. You can check with
+The A2DP sink stream shows up as `auto_null.monitor`. You can check the source name using
 
 ```pactl list sources short```
 
