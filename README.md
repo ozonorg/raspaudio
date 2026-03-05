@@ -281,10 +281,13 @@ Environment=PULSE_SERVER=unix:/run/user/1000/pulse/native
 [Install]
 WantedBy=multi-user.target
 ```
+
 Then properly register the new service with the system and enable/start it. 
+
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable --now httpstream.service
+```
 
 ## Connect an A2DP source
 Connect and A2DP source like a phone, start to play some music and route it to the Pi Bluetooth sink.
