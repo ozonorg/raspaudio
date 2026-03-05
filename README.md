@@ -12,7 +12,6 @@ I am using a Raspberry Pi Zero 2 W with the latest Raspberry Pi OS (13.2).
 - Sometimes you have to restart the system, re-pair or reconnect device for A2DP to work.
 
 ## To Dos
-- Make the stream a service that works all the time regardless of a Bluetooth audio stream present and there is no interaction needed with the system at all.
 - When there is no Bluetooth audio stream present, play some default sound to allow an easy check if the http stream works
 
 ## Maybe's
@@ -233,7 +232,7 @@ Make the script executable:
 ```
 sudo chmod +x /usr/local/bin/bt-agent.py
 ```
-## Create a systemd service
+## Create a systemd connect service (agent)
 For the agent script we create a systemd service so it will start and restart automaticaly.
 ```
 sudo nano /etc/systemd/system/bt-auto-agent.service
@@ -261,15 +260,39 @@ Then properly register the new service with the system and enable/start it.
 sudo systemctl daemon-reload
 sudo systemctl enable --now bt-auto-agent.service
 ```
+## Create a systemd streaming service
+For the http mp3 stream script we also create a systemd service so it will start and restart automaticaly.
+```
+sudo nano /etc/systemd/system/httpstream.service
+```
+paste contents: 
+```
+[Unit]
+Description=Bluetooth HTTP MP3 Stream
+After=network.target sound.target
+
+[Service]
+ExecStart=/usr/bin/ffmpeg -f pulse -i auto_null.monitor -ac 2 -ar 44100 -b:a >
+Restart=always
+RestartSec=2
+User=pi
+Environment=PULSE_SERVER=unix:/run/user/1000/pulse/native
+
+[Install]
+WantedBy=multi-user.target
+```
+Then properly register the new service with the system and enable/start it. 
+```
+sudo systemctl daemon-reload
+sudo systemctl enable --now httpstream.service
+
 ## Connect an A2DP source
 Connect and A2DP source like a phone, start to play some music and route it to the Pi Bluetooth sink.
-## Stream the music via http
+
+
+
+## Debugging Info
 The A2DP sink stream shows up as `auto_null.monitor`. You can check the source name using
 
 ```pactl list sources short```
 
-
-Then start the stream:
-```
-ffmpeg -f pulse -i auto_null.monitor -ac 2 -ar 44100 -b:a 128k -f mp3 -listen 1 http://0.0.0.0:8000/
-```
