@@ -27,7 +27,6 @@ This project can be used for:
 
 ## Maybe's
 - Turn this documentation into a setup_script.sh
-- Move streaming from ffmpeg to icecast/darkice
 - Make the device discoverable only a limited time after power on
 - Make a minimal web interface for managing devices (discoverable on/off, remove paired devices)
 - Harden the setup (readonly FS)
@@ -53,16 +52,18 @@ sudo loginctl enable-linger
 ## Install necessary software
 
 ```
-sudo apt install -y pipewire-audio pulseaudio-utils bluez-tools python3-dbus python3-gi wireplumber pipewire-pulse libspa-0.2-bluetooth
+sudo apt install -y pipewire-audio pulseaudio-utils bluez-tools python3-dbus python3-gi wireplumber pipewire-pulse libspa-0.2-bluetooth icecast2
 ```
-Some packages are already part of the distribution used here, some packages used in the setup may be missing on other distributions.
+Some packages are already part of the distribution used here, some packages used in the setup may be missing on other distributions. You will need the icecast source password you shoose during setup later.
 
-## Enable sound routing and bluetooth
+## Enable sound routing, bluetooth and icecast
 
 ```
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
 
-systemctl enable --now bluetooth
+sudo systemctl enable --now bluetooth
+sudo systemctl enable --now icecast2
+
 ```
 
 ## Configure Bluetooth
@@ -283,7 +284,7 @@ Description=Bluetooth HTTP MP3 Stream
 After=network.target sound.target
 
 [Service]
-ExecStart=/usr/bin/ffmpeg -f pulse -i auto_null.monitor -ac 2 -ar 44100 -b:a 128k -f mp3 -headers "Content-Type: audio/mpeg" -listen 1 http://0.0.0.0:8000/stream.mp3
+ExecStart=/usr/bin/ffmpeg -f pulse -i auto_null.monitor -ac 2 -ar 44100 -b:a 128k -f mp3 -content_type audio/mpeg icecast://source:sourcepassword@127.0.0.1:8000/stream.mp3
 Restart=always
 RestartSec=2
 User=pi
