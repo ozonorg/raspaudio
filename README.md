@@ -1,5 +1,5 @@
 # Raspaudio - A Pi based Bluetooth audio sink with http stream output 
-I own an old webradio that has neither Bluetooth nor a line in. In order to play music from my phone I wanted a device that can act as a bluetooth audio sink and forward the stream via http.
+I own an old internet radio receiver that has neither Bluetooth nor a line in. In order to play music from my phone I wanted a device that can act as a bluetooth audio sink and forward the stream via http.
 
 ## Remarks
 The setup is done as the 'pi' default user, thus the 'sudo' commands. All services are however set up as system services.
