@@ -61,8 +61,7 @@ Some packages are already part of the distribution used here, some packages used
 ```
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
 
-sudo systemctl enable --now bluetooth
-sudo systemctl enable --now icecast2
+sudo systemctl enable --now bluetooth icecast2
 
 ```
 
