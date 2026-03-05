@@ -4,8 +4,10 @@ I am using a Raspberry Pi Zero 2 W with the latest Raspberry Pi OS (13.2).
 
 ## Remarks
 - The setup is done as the 'pi' default user, thus the 'sudo' commands.
-- All services are set up as system services.
-- The project is in a 'works for me' state and has no regards of any other scripts or services on the machine. 
+- Some services (bluetooth, Bluetooth-agent, ffmpeg) are set up as system services. The audio routing is done by the pi user.
+- The project is in a 'works for me' state and has no regards of any other scripts or services on the machine.
+- The device accepts any Bluetooth connection request automatically. Any nearby device can pair and connect.
+- This was a days (on sick leave) work. There may be any kind of redundancies and odd detours. Any comments are welcome.
 
 ## Known Bugs
 - The 'Name' in '/etc/bluetooth/main.conf' is not used, but the machine name.
@@ -42,7 +44,7 @@ sudo loginctl enable-linger
 ## Install necessary software
 
 ```
-sudo apt install -y pipewire-audio pulseaudio-utils bluez-tools python3-dbus wireplumber pipewire-pulse libspa-0.2-bluetooth
+sudo apt install -y pipewire-audio pulseaudio-utils bluez-tools python3-dbus python3-gi wireplumber pipewire-pulse libspa-0.2-bluetooth
 ```
 Some packages are already part of the distribution used here, some packages used in the setup may be missing on other distributions.
 
@@ -294,8 +296,10 @@ Connect and A2DP source like a phone, start to play some music and route it to t
 
 
 
-## Debugging Info
-The A2DP sink stream shows up as `auto_null.monitor`. You can check the source name using
+## Debugging Info / Troubleshooting
+The A2DP sink stream shows up as `auto_null.monitor`. You can check the savailable sinks using
 
 ```pactl list sources short```
 
+Check if Bluetooth audio is detected
+```wpctl status```
