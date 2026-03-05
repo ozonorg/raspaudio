@@ -26,7 +26,7 @@ I am using a Raspberry Pi Zero 2 W with the latest Raspberry Pi OS (13.2).
 
 Start with a Raspberry Pi Os 32 Bit (with Desktop) Version 13.2 (Trixie).
 
-The GUI won't bee needed but the lite version might have issues with Bluetooth and/or A2DP.
+The GUI won't be needed but the lite version might have issues with Bluetooth and/or A2DP.
 
 
 
