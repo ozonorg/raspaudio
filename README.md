@@ -1,4 +1,4 @@
-# Raspaudio
+# Raspaudiostreamer
 Turn a Raspberry Pi Zero 2 W into a **Bluetooth A2DP receiver that rebroadcasts the audio as an HTTP MP3 stream**.
 
 I own an old internet radio receiver that has neither Bluetooth nor a line in. In order to play music from my phone I wanted a device that can act as a Bluetooth audio sink and forward the stream via http.
